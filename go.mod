@@ -9,6 +9,7 @@ require (
 	github.com/golang/gddo v0.0.0-20190419222130-af0f2af80721 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/gorilla/csrf v1.6.0
+	github.com/gorilla/securecookie v1.1.1
 	github.com/lpar/gzipped v1.1.0
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/viper v1.4.0
