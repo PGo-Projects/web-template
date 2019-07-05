@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Setup(mux *chi.Mux, allowedOrigins []string) {
+func Setup(mux *chi.Mux) {
 	// Setup security middleware
 	mux.Use(webauth.ExpirationMiddleware)
 
@@ -24,6 +24,7 @@ func Setup(mux *chi.Mux, allowedOrigins []string) {
 	webauth.SetupSessions([]byte(authenticationKey), []byte(encryptionKey))
 	webauth.SessionOptions.Secure = config.ProdRun
 
+	allowedOrigins := viper.GetStringSlice(config.AllowedOrigins)
 	webauth.SetupCORS(mux, false, allowedOrigins)
 	webauth.SetupCSRF(mux, []byte(csrfAuthenticationKey), config.ProdRun)
 	webauth.RegisterEndPoints(mux)

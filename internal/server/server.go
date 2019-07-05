@@ -19,7 +19,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-const SOCK = "/tmp/<INSERT SOCK NAME>.sock"
+var SOCK = viper.GetString(config.SockName)
 
 func isValidStaticAssetPath(path string) bool {
 	webAssetsDirectory := viper.GetString(config.WebAssetsPathKey)
@@ -42,9 +42,7 @@ func Run(cmd *cobra.Command, arg []string) {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Logger)
 
-	// TODO: Fill in all allowed origins
-	allowedOrigins := []string{"http://localhost:8080"}
-	security.Setup(mux, allowedOrigins)
+	security.Setup(mux)
 	mux.MethodFunc(http.MethodGet, "/*", serveStaticOrIndex)
 
 	if config.DevRun {
