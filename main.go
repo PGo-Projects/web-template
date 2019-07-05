@@ -20,11 +20,11 @@ func init() {
 		"config file (default is config.toml)")
 	ServerCmd.PersistentFlags().BoolVar(&config.DevRun, "dev", false,
 		"Run the server on a dev machine")
-	cobra.OnInitialize(config.Init)
+	cobra.OnInitialize(config.MustInit)
 }
 
 func main() {
 	if err := ServerCmd.Execute(); err != nil {
-		output.ErrorAndExit(err, 1)
+		output.ErrorAndPanic(err)
 	}
 }

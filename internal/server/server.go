@@ -54,7 +54,7 @@ func Run(cmd *cobra.Command, arg []string) {
 		os.Remove(SOCK)
 		unixListener, err := net.Listen("unix", SOCK)
 		if err != nil {
-			output.Error(err)
+			output.Errorln(err)
 		}
 		os.Chmod(SOCK, 0666)
 		defer unixListener.Close()

@@ -11,7 +11,7 @@ var (
 	ProdRun  bool
 )
 
-func Init() {
+func MustInit() {
 	if Filename != "" {
 		viper.SetConfigFile(Filename)
 	} else {
@@ -21,7 +21,7 @@ func Init() {
 	}
 
 	if err := viper.ReadInConfig(); err != nil {
-		output.ErrorAndExit(err, 1)
+		output.ErrorAndPanic(err)
 	}
 
 	ProdRun = !DevRun
