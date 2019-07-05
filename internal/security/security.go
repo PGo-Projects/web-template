@@ -1,8 +1,10 @@
 package security
 
 import (
+	"context"
+
 	"github.com/PGo-Projects/web-template/internal/config"
-	"github.com/PGo-Projects/web-template/internal/database"
+	"github.com/PGo-Projects/web-template/internal/securitydb"
 	"github.com/PGo-Projects/webauth"
 	"github.com/go-chi/chi"
 	"github.com/spf13/viper"
@@ -16,7 +18,8 @@ func Setup(mux *chi.Mux, allowedOrigins []string) {
 	encryptionKey := viper.GetString(config.EncryptionKey)
 	csrfAuthenticationKey := viper.GetString(config.CSRFAuthenticationKey)
 
-	webauth.RegisterDatabase(database.Client())
+	mongoClient := securitydb.MustMongoClient(context.TODO(), "mongodb://localhost:27017")
+	webauth.RegisterDatabase(mongoClient)
 
 	webauth.SetupSessions([]byte(authenticationKey), []byte(encryptionKey))
 	webauth.SessionOptions.Secure = config.ProdRun
