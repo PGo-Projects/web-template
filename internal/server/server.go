@@ -38,11 +38,11 @@ func serveStaticOrIndex(w http.ResponseWriter, r *http.Request) {
 	gzipped.FileServer(webAssetsDirectory).ServeHTTP(w, r)
 }
 
-func Run(cmd *cobra.Command, arg []string) {
+func MustRun(cmd *cobra.Command, arg []string) {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Logger)
 
-	security.Setup(mux)
+	security.MustSetup(mux)
 	mux.MethodFunc(http.MethodGet, "/*", serveStaticOrIndex)
 
 	if config.DevRun {

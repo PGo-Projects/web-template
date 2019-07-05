@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func Setup(mux *chi.Mux) {
+func MustSetup(mux *chi.Mux) {
 	// Setup security middleware
 	mux.Use(webauth.ExpirationMiddleware)
 

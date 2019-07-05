@@ -11,7 +11,7 @@ var (
 	// TODO: Insert cobra command name here
 	ServerCmd = &cobra.Command{
 		Use: "<INSERT NAME HERE>",
-		Run: server.Run,
+		Run: server.MustRun,
 	}
 )
 
