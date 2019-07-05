@@ -23,4 +23,6 @@ func Init() {
 	if err := viper.ReadInConfig(); err != nil {
 		output.ErrorAndExit(err, 1)
 	}
+
+	ProdRun = !DevRun
 }
