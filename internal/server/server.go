@@ -19,8 +19,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-var SOCK = viper.GetString(config.SockName)
-
 func isValidStaticAssetPath(path string) bool {
 	webAssetsDirectory := viper.GetString(config.WebAssetsPathKey)
 	resourcePath := filepath.Join(webAssetsDirectory, path)
@@ -49,6 +47,7 @@ func MustRun(cmd *cobra.Command, arg []string) {
 		output.Println("Attempting to run on localhost:8080...", output.BLUE)
 		log.Fatal(http.ListenAndServe(":8080", mux))
 	} else {
+		SOCK := viper.GetString(config.SockName)
 		os.Remove(SOCK)
 		unixListener, err := net.Listen("unix", SOCK)
 		if err != nil {
